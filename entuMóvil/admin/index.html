@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Negocios - entuMóvil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <script src="../assets/js/data-manager.js"></script>
+    <style>
+        /* Estilos específicos para la página de administración */
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 80px;
+            background: rgba(20, 20, 40, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(157, 0, 255, 0.3);
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .admin-title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .admin-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .form-section {
+            background: rgba(30, 30, 50, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(157, 0, 255, 0.3);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(40, 40, 60, 0.8);
+            border: 1px solid rgba(157, 0, 255, 0.4);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(157, 0, 255, 0.3);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-primary);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #00ff88, #00cc66);
+        }
+
+        .business-list {
+            margin-top: 40px;
+        }
+
+        .business-item {
+            background: rgba(40, 40, 60, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(157, 0, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .business-info h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .business-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(45deg, #00ff88, #00cc66);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: linear-gradient(45deg, #ff4444, #cc0000);
+        }
+
+        .gallery-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .gallery-item {
+            width: 100px;
+            height: 100px;
+            background: rgba(60, 60, 80, 0.8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(157, 0, 255, 0.3);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-container {
+                padding: 80px 15px 60px;
+            }
+            
+            .admin-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="subcategoria-lista">
+    <nav class="cosmic-navbar">
+        <div class="brand-container">
+            <img src="../assets/images/logo/entumovil.webp" alt="entuMovil Logo" class="brand-logo">
+            <img src="../assets/images/logo/logotex.webp" alt="Additional Logo" class="brand-additional-logo">
+        </div>
+        
+        <div class="nav-links">
+            <a href="../index.html" class="nav-btn">Inicio</a>
+            <a href="../pages/portada.html" class="nav-btn">Portada</a>
+            <a href="#" class="nav-btn active">Administración</a>
+        </div>
+        
+        <div class="social-icons">
+            <a href="https://wa.me/tunumero" target="_blank" class="social-icon whatsapp" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://facebook.com/tupagina" target="_blank" class="social-icon facebook" title="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://instagram.com/tupagina" target="_blank" class="social-icon instagram" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </nav>
+
+    <div class="cosmos-background">
+        <div class="stars-container"></div>
+    </div>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1 class="admin-title">Administración de Negocios</h1>
+            <p class="admin-subtitle">Gestiona y agrega nuevos negocios a la plataforma entuMóvil</p>
+        </div>
+
+        <form id="business-form">
+            <div class="form-section">
+                <h3 class="form-title">
+                    <i class="fas fa-store"></i>
+                    Información del Negocio
+                </h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Nombre del Negocio</label>
+                        <input type="text" class="form-input" id="business-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Subtítulo</label>
+                        <input type="text" class="form-input" id="business-subtitle" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Tagline/Eslogan</label>
+                    <input type="text" class="form-input" id="business-tagline" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Categoría</label>
+                        <select class="form-select" id="business-category" required>
+                            <option value="">Seleccionar categoría</option>
+                            <option value="1_alimentos">Alimentos y Bebidas</option>
+                            <option value="2_compras">Compras y Alojamiento</option>
+                            <option value="3_servicios">Servicios Técnicos</option>
+                            <option value="4_belleza">Belleza y Bienestar</option>
+                            <option value="5_movilidad">Movilidad</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Subcategoría</label>
+                        <select class="form-select" id="business-subcategory" required>
+                            <option value="">Seleccionar subcategoría</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="form-title">
+                    <i class="fas fa-phone"></i>
+                    Información de Contacto
+                </h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Horario</label>
+                        <input type="text" class="form-input" id="business-hours" placeholder="Ej: Lun - Dom: 8:00 AM - 10:00 PM">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Teléfono Principal</label>
+                        <input type="tel" class="form-input" id="business-phone" placeholder="+58 212-123-4567">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Dirección</label>
+                    <textarea class="form-textarea" id="business-address" rows="3" placeholder="Dirección completa del negocio"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">WhatsApp</label>
+                        <input type="url" class="form-input" id="business-whatsapp" placeholder="https://wa.me/584121112222">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Facebook</label>
+                        <input type="url" class="form-input" id="business-facebook" placeholder="https://facebook.com/negocio">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Instagram</label>
+                    <input type="url" class="form-input" id="business-instagram" placeholder="https://instagram.com/negocio">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="form-title">
+                    <i class="fas fa-images"></i>
+                    Galería de Imágenes
+                </h3>
+                
+                <div class="form-group">
+                    <label class="form-label">URL de Imágenes (separadas por comas)</label>
+                    <textarea class="form-textarea" id="business-gallery" rows="3" placeholder="assets/images/negocios/nombre/imagen1.jpg, assets/images/negocios/nombre/imagen2.jpg"></textarea>
+                    <div class="gallery-preview" id="gallery-preview"></div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="form-title">
+                    <i class="fas fa-info-circle"></i>
+                    Descripción
+                </h3>
+                
+                <div class="form-group">
+                    <label class="form-label">Descripción del Negocio</label>
+                    <textarea class="form-textarea" id="business-description" rows="6" placeholder="Describe tu negocio, servicios, historia, etc."></textarea>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i>
+                    Guardar Negocio
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                    <i class="fas fa-undo"></i>
+                    Limpiar Formulario
+                </button>
+            </div>
+        </form>
+
+        <div class="business-list" id="business-list">
+            <h3>Negicios Existentes</h3>
+            <div id="existing-businesses"></div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <footer>
+        <p>LMzFX © 2026 - Arquitectura y crecimiento digital</p>
+    </footer>
+
+    <script src="../assets/js/data-loader.js"></script>
+    <script>
+        // Categorías y subcategorías
+        const subcategories = {
+            '1_alimentos': {
+                'restaurantes': 'Restaurantes',
+                'bares': 'Bares',
+                'pizzerias': 'Pizzerías',
+                'dulcerias': 'Dulcerías'
+            },
+            '2_compras': {
+                'supermercados': 'Supermercados',
+                'ferreterias': 'Ferreterías',
+                'tiendas': 'Tiendas',
+                'hospedajes': 'Hospedajes'
+            },
+            '3_servicios': {
+                'celulares': 'Taller de Celulares',
+                'motos': 'Taller de Motos Eléctricas',
+                'impresora': 'Personalización e Impresión',
+                'taller': 'Reparaciones Generales'
+            },
+            '4_belleza': {
+                'salones': 'Salón de Belleza',
+                'barberias': 'Barbería',
+                'gimnasios': 'Gimnasios',
+                'farmacias': 'Farmacias'
+            },
+            '5_movilidad': {
+                'taxis': 'Taxis',
+                'privado': 'Transporte Privado',
+                'excursiones': 'Excursiones',
+                'autos': 'Alquiler de Autos'
+            }
+        };
+
+        // Actualizar subcategorías cuando cambia la categoría
+        document.getElementById('business-category').addEventListener('change', function() {
+            const category = this.value;
+            const subcategorySelect = document.getElementById('business-subcategory');
+            
+            subcategorySelect.innerHTML = '<option value="">Seleccionar subcategoría</option>';
+            
+            if (category && subcategories[category]) {
+                Object.keys(subcategories[category]).forEach(key => {
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = subcategories[category][key];
+                    subcategorySelect.appendChild(option);
+                });
+            }
+        });
+
+        // Previsualizar galería
+        document.getElementById('business-gallery').addEventListener('input', function() {
+            const galleryText = this.value;
+            const preview = document.getElementById('gallery-preview');
+            preview.innerHTML = '';
+            
+            if (galleryText.trim()) {
+                const images = galleryText.split(',').slice(0, 6); // Mostrar máximo 6 imágenes
+                images.forEach(image => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.textContent = image.trim().split('/').pop();
+                    preview.appendChild(item);
+                });
+            }
+        });
+
+        // Mostrar notificación
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Limpiar formulario
+        function resetForm() {
+            document.getElementById('business-form').reset();
+            document.getElementById('gallery-preview').innerHTML = '';
+            document.querySelector('.form-title').innerHTML = '<i class="fas fa-plus"></i> Agregar Nuevo Negocio';
+            delete document.getElementById('business-form').dataset.editId;
+        }
+
+        // Cargar negocios existentes
+        async function loadExistingBusinesses() {
+            const container = document.getElementById('existing-businesses');
+            container.innerHTML = '<div class="loading">Cargando negocios...</div>';
+            
+            try {
+                const dataManager = await initDataManager('../data/negocios.json');
+                if (dataManager) {
+                    const negocios = dataManager.getAllNegocios();
+                    container.innerHTML = '';
+                    
+                    Object.keys(negocios).forEach(id => {
+                        const negocio = negocios[id];
+                        const item = document.createElement('div');
+                        item.className = 'business-item';
+                        item.innerHTML = `
+                            <div class="business-info">
+                                <h4>${negocio.nombre}</h4>
+                                <p>${negocio.subtitulo} - ${negocio.categoria}</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-small" onclick="editBusiness('${id}')">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                                <button class="btn btn-small" onclick="deleteBusiness('${id}')" style="background: linear-gradient(45deg, #ff4444, #cc0000);">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
+                            </div>
+                        `;
+                        container.appendChild(item);
+                    });
+                    
+                    if (Object.keys(negocios).length === 0) {
+                        container.innerHTML = '<p>No hay negocios registrados.</p>';
+                    }
+                }
+            } catch (error) {
+                console.error('Error al cargar negocios:', error);
+                container.innerHTML = '<p>Error al cargar los negocios.</p>';
+            }
+        }
+
+        // Editar negocio
+        async function editBusiness(id) {
+            try {
+                const dataManager = await initDataManager('../data/negocios.json');
+                const negocio = dataManager.getBusinessById(id);
+                
+                if (negocio) {
+                    // Rellenar el formulario con los datos del negocio
+                    document.getElementById('business-name').value = negocio.nombre;
+                    document.getElementById('business-subtitle').value = negocio.subtitulo;
+                    document.getElementById('business-tagline').value = negocio.tagline;
+                    
+                    // Establecer categoría y subcategoría
+                    document.getElementById('business-category').value = negocio.subcategoria;
+                    
+                    // Disparar evento de cambio para cargar subcategorías
+                    const categoryEvent = new Event('change');
+                    document.getElementById('business-category').dispatchEvent(categoryEvent);
+                    
+                    // Esperar a que se carguen las subcategorías
+                    setTimeout(() => {
+                        document.getElementById('business-subcategory').value = negocio.categoria;
+                        
+                        // Rellenar datos de contacto
+                        document.getElementById('business-hours').value = negocio.contacto.horario;
+                        document.getElementById('business-phone').value = negocio.contacto.telefonos[0] || '';
+                        document.getElementById('business-address').value = negocio.contacto.direccion;
+                        
+                        // Rellenar redes sociales
+                        document.getElementById('business-whatsapp').value = negocio.redes_sociales.whatsapp || '';
+                        document.getElementById('business-facebook').value = negocio.redes_sociales.facebook || '';
+                        document.getElementById('business-instagram').value = negocio.redes_sociales.instagram || '';
+                        
+                        // Rellenar galería
+                        document.getElementById('business-gallery').value = negocio.galeria.join(', ');
+                        
+                        // Actualizar previsualización de galería
+                        const preview = document.getElementById('gallery-preview');
+                        preview.innerHTML = '';
+                        negocio.galeria.forEach(image => {
+                            const item = document.createElement('div');
+                            item.className = 'gallery-item';
+                            item.textContent = image.split('/').pop();
+                            preview.appendChild(item);
+                        });
+                        
+                        // Cambiar título del formulario
+                        document.querySelector('.form-title').innerHTML = '<i class="fas fa-edit"></i> Editar Negocio';
+                        
+                        // Guardar el ID del negocio que estamos editando
+                        document.getElementById('business-form').dataset.editId = id;
+                        
+                        // Scroll al formulario
+                        document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                } else {
+                    showNotification('Negocio no encontrado', 'error');
+                }
+            } catch (error) {
+                console.error('Error al editar negocio:', error);
+                showNotification('Error al cargar los datos del negocio', 'error');
+            }
+        }
+
+        // Eliminar negocio
+        async function deleteBusiness(id) {
+            if (confirm('¿Estás seguro de eliminar este negocio?')) {
+                try {
+                    const dataManager = await initDataManager('../data/negocios.json');
+                    const success = dataManager.deleteBusiness(id);
+                    
+                    if (success) {
+                        showNotification('Negocio eliminado exitosamente!');
+                        loadExistingBusinesses();
+                    } else {
+                        showNotification('Error al eliminar el negocio', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error al eliminar negocio:', error);
+                    showNotification('Error al eliminar el negocio', 'error');
+                }
+            }
+        }
+
+        // Guardar negocio (crear o actualizar)
+        document.getElementById('business-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const editId = this.dataset.editId;
+            const formData = {
+                id: document.getElementById('business-name').value.toLowerCase().replace(/\s+/g, '_'),
+                nombre: document.getElementById('business-name').value,
+                subtitulo: document.getElementById('business-subtitle').value,
+                tagline: document.getElementById('business-tagline').value,
+                categoria: document.getElementById('business-subcategory').value,
+                subcategoria: document.getElementById('business-category').value,
+                contacto: {
+                    horario: document.getElementById('business-hours').value,
+                    telefonos: [document.getElementById('business-phone').value].filter(p => p.trim()),
+                    direccion: document.getElementById('business-address').value
+                },
+                redes_sociales: {
+                    whatsapp: document.getElementById('business-whatsapp').value,
+                    facebook: document.getElementById('business-facebook').value,
+                    instagram: document.getElementById('business-instagram').value
+                },
+                galeria: document.getElementById('business-gallery').value.split(',').map(img => img.trim()).filter(img => img),
+                descripcion: document.getElementById('business-description').value
+            };
+            
+            // Validar datos
+            if (!formData.nombre || !formData.subtitulo || !formData.tagline || !formData.categoria) {
+                showNotification('Por favor, completa todos los campos requeridos', 'error');
+                return;
+            }
+            
+            try {
+                // Obtener el gestor de datos
+                const dataManager = await initDataManager('../data/negocios.json');
+                
+                let success;
+                if (editId) {
+                    // Actualizar negocio existente
+                    success = dataManager.updateBusiness(editId, formData);
+                    if (success) {
+                        showNotification('Negocio actualizado exitosamente!');
+                    }
+                } else {
+                    // Crear nuevo negocio
+                    success = dataManager.addBusiness(formData);
+                    if (success) {
+                        showNotification('Negocio guardado exitosamente!');
+                    }
+                }
+                
+                if (success) {
+                    // Limpiar formulario
+                    resetForm();
+                    
+                    // Recargar lista
+                    setTimeout(() => {
+                        loadExistingBusinesses();
+                    }, 1000);
+                } else {
+                    showNotification('Error al guardar el negocio', 'error');
+                }
+            } catch (error) {
+                console.error('Error al guardar negocio:', error);
+                showNotification('Error al guardar el negocio', 'error');
+            }
+        });
+
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadExistingBusinesses();
+        });
+    </script>
+</body>
+</html>

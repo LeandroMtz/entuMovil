@@ -1,0 +1,135 @@
+{
+  "categorias": {
+    "1_alimentos": {
+      "nombre": "Alimentos y Bebidas",
+      "descripcion": "Restaurantes, bares, pizzerías y más",
+      "color": "#FF00FF",
+      "secundario": "#FF69B4",
+      "accento": "#FF1493",
+      "negocios": {
+        "restaurante_sabor_cosmico": {
+          "id": "restaurante_sabor_cosmico",
+          "nombre": "Restaurante Sabor Cósmico",
+          "subtitulo": "Gastronomía de Alta Calidad",
+          "tagline": "Sabores que viajan por el universo, una experiencia culinaria única desde 2008",
+          "categoria": "restaurantes",
+          "subcategoria": "1_alimentos",
+          "contacto": {
+            "horario": "Lun - Dom: 12:00 PM - 11:00 PM<br>Cerrado los martes",
+            "telefonos": [
+              "+58 212-111-2222",
+              "+58 414-111-2222"
+            ],
+            "direccion": "Av. Principal de Sabana Grande,<br>Centro Comercial Gastronómico,<br>Piso 2, Local R-05<br>Caracas, Venezuela"
+          },
+          "redes_sociales": {
+            "whatsapp": "https://wa.me/584121112222",
+            "facebook": "https://facebook.com/saborcosmico",
+            "instagram": "https://instagram.com/saborcosmico"
+          },
+          "galeria": [
+            "assets/images/negocios/restaurantes/interior.jpg",
+            "assets/images/negocios/restaurantes/plato1.jpg",
+            "assets/images/negocios/restaurantes/plato2.jpg",
+            "assets/images/negocios/restaurantes/barra.jpg",
+            "assets/images/negocios/restaurantes/terraza.jpg",
+            "assets/images/negocios/restaurantes/evento.jpg"
+          ],
+          "descripcion": "Bienvenidos a Restaurante Sabor Cósmico, tu destino gastronómico en el corazón de Caracas. Desde 2008, hemos deleitado a nuestros comensales con una fusión única de sabores internacionales y toques venezolanos, preparados con ingredientes frescos y de la más alta calidad. Nuestro chef ejecutivo, con más de 20 años de experiencia en las mejores cocinas del mundo, ha diseñado un menú innovador que combina técnicas culinarias modernas con recetas tradicionales. Ofrecemos una experiencia completa con nuestra carta de vinos premiada, coctelería artesanal y un ambiente elegante con vista panorámica de la ciudad. En Sabor Cósmico, cada detalle cuenta. Desde nuestra atención personalizada hasta la presentación impecable de cada plato, nos esforzamos por crear momentos inolvidables para celebraciones especiales, cenas románticas o reuniones de negocios. Contamos con áreas privadas para eventos y un servicio de catering para ocasiones memorables. ¡Ven y déjate transportar por una experiencia gastronómica que desafía los límites del universo!"
+        },
+        "bar_la_luna": {
+          "id": "bar_la_luna",
+          "nombre": "Bar La Luna",
+          "subtitulo": "Ambiente Relajado",
+          "tagline": "El mejor lugar para disfrutar de noches inolvidables bajo las estrellas",
+          "categoria": "bares",
+          "subcategoria": "1_alimentos",
+          "contacto": {
+            "horario": "Lun - Dom: 6:00 PM - 2:00 AM",
+            "telefonos": [
+              "+58 212-1234567"
+            ],
+            "direccion": "Calle Luna 123, Esquina Estrella,<br>La Urbina, Caracas, Venezuela"
+          },
+          "redes_sociales": {
+            "whatsapp": "https://wa.me/58211234567",
+            "facebook": "https://facebook.com/barlaluna",
+            "instagram": "https://instagram.com/barlaluna"
+          },
+          "galeria": [
+            "assets/images/negocios/bares/interior.jpg",
+            "assets/images/negocios/bares/cocktails.jpg",
+            "assets/images/negocios/bares/musica.jpg",
+            "assets/images/negocios/bares/terraza.jpg",
+            "assets/images/negocios/bares/evento.jpg",
+            "assets/images/negocios/bares/personal.jpg"
+          ],
+          "descripcion": "Bar La Luna es un acogedor espacio diseñado para aquellos que buscan un ambiente relajado y música en vivo. Nuestra carta de cocteles artesanales y vinos selectos complementan perfectamente las noches de Caracas. Disfruta de nuestra terraza con vista a las estrellas mientras degustas nuestras especialidades creadas por nuestros mixólogos expertos."
+        }
+      }
+    },
+    "2_compras": {
+      "nombre": "Compras y Alojamiento",
+      "descripcion": "Supermercados, tiendas, ferreterías y hospedajes",
+      "color": "#00BFFF",
+      "secundario": "#1E90FF",
+      "accento": "#4169E1",
+      "negocios": {
+        "supermaxi_central": {
+          "id": "supermaxi_central",
+          "nombre": "Supermaxi Central",
+          "subtitulo": "Tu Supermercado de Confianza",
+          "tagline": "Productos frescos, precios justos y atención personalizada desde 1995",
+          "categoria": "supermercados",
+          "subcategoria": "2_compras",
+          "contacto": {
+            "horario": "Lun - Sab: 7:00 AM - 10:00 PM<br>Dom: 8:00 AM - 9:00 PM",
+            "telefonos": [
+              "+58 212-987-6543",
+              "+58 414-123-4567"
+            ],
+            "direccion": "Av. Principal de Las Mercedes,<br>Centro Comercial Las Mercedes,<br>Piso PB, Local S-01<br>Caracas, Venezuela"
+          },
+          "redes_sociales": {
+            "whatsapp": "https://wa.me/584129876543",
+            "facebook": "https://facebook.com/supermaxicentral",
+            "instagram": "https://instagram.com/supermaxicentral"
+          },
+          "galeria": [
+            "assets/images/negocios/supermercado/interior.jpg",
+            "assets/images/negocios/supermercado/productos.jpg",
+            "assets/images/negocios/supermercado/frescos.jpg",
+            "assets/images/negocios/supermercado/carniceria.jpg",
+            "assets/images/negocios/supermercado/panaderia.jpg",
+            "assets/images/negocios/supermercado/cajas.jpg"
+          ],
+          "descripcion": "Bienvenidos a Supermaxi Central, tu supermercado de confianza en el corazón de Caracas. Desde 1995, nos hemos dedicado a ofrecer productos de la más alta calidad con precios justos y un servicio excepcional para toda la familia. Nuestro compromiso es brindarte una experiencia de compra única, con más de 15,000 productos en exhibición, desde alimentos frescos y orgánicos hasta artículos para el hogar y cuidado personal. Contamos con secciones especializadas como carnicería premium, pescadería fresca, panadería artesanal y una amplia selección de productos internacionales. En Supermaxi Central, la frescura y calidad son nuestra prioridad. Trabajamos directamente con productores locales y proveedores internacionales para garantizar que cada artículo en nuestros estantes cumpla con los más altos estándares. Nuestro equipo de más de 100 empleados está capacitado para atenderte con amabilidad y eficiencia en cada visita. ¡Te esperamos para hacer tus compras una experiencia extraordinaria!"
+        }
+      }
+    },
+    "3_servicios": {
+      "nombre": "Servicios Técnicos",
+      "descripcion": "Reparaciones, mantenimiento y servicios especializados",
+      "color": "#00FF7F",
+      "secundario": "#32CD32",
+      "accento": "#228B22",
+      "negocios": {}
+    },
+    "4_belleza": {
+      "nombre": "Belleza y Bienestar",
+      "descripcion": "Salones, barberías, gimnasios y farmacias",
+      "color": "#9370DB",
+      "secundario": "#8A2BE2",
+      "accento": "#9932CC",
+      "negocios": {}
+    },
+    "5_movilidad": {
+      "nombre": "Movilidad",
+      "descripcion": "Transporte, alquiler y excursiones",
+      "color": "#ADFF2F",
+      "secundario": "#9ACD32",
+      "accento": "#6B8E23",
+      "negocios": {}
+    }
+  }
+}

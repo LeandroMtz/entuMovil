@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurante Sabor Cósmico - entuMóvil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicons -->
+    <link href="../../../assets/images/logo/entumovil.webp" rel="icon">
+    <link href="../../../assets/images/logo/favicon.webp" rel="icon">
+    <style>
+      /* Base Styles - Pink/Magenta Theme for Restaurant (matching category page) */
+      :root {
+        --primary: #FF00FF;
+        --secondary: #FF69B4;
+        --accent: #FF1493;
+        --background: #050510;
+        --card-bg: rgba(30, 15, 30, 0.85);
+        --text-primary: #ffffff;
+        --text-secondary: #ffb6c1;
+        --glow-primary: 0 0 10px rgba(255, 0, 255, 0.8),
+          0 0 20px rgba(255, 105, 180, 0.6);
+        --glow-secondary: 0 0 10px rgba(255, 105, 180, 0.8),
+          0 0 20px rgba(255, 69, 0, 0.6);
+        --glow-accent: 0 0 10px rgba(199, 21, 133, 0.8),
+          0 0 20px rgba(139, 0, 139, 0.6);
+        --phone-green: #00e676;
+        --lmzfx-orange: #ff6b00;
+        --transition-speed: 0.5s;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        font-family: "Chakra Petch", sans-serif;
+        background-color: var(--background);
+        color: var(--text-primary);
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      body {
+        background-image: url('../../../../../assets/images/bg/bgnegocios.webp');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+      
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(5, 5, 16, 0.4);
+        z-index: -1;
+      }
+
+      body {
+        padding-bottom: 60px;
+      }
+
+      /* Typography */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Orbitron", sans-serif;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+
+      /* Cosmic Background */
+      .cosmos-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: radial-gradient(
+          ellipse at bottom,
+          #1b2735 0%,
+          #090a0f 100%
+        );
+        overflow: hidden;
+      }
+
+      .stars-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(
+            1px 1px at 25% 25%,
+            white,
+            rgba(0, 0, 0, 0)
+          ),
+          radial-gradient(1px 1px at 50% 50%, white, rgba(0, 0, 0, 0)),
+          radial-gradient(2px 2px at 75% 75%, white, rgba(0, 0, 0, 0)),
+          radial-gradient(2px 2px at 100% 100%, white, rgba(0, 0, 0, 0));
+        background-size: 200px 200px, 300px 300px, 400px 400px, 600px 600px;
+        background-repeat: repeat;
+        animation: twinkle 10s linear infinite;
+      }
+
+      @keyframes twinkle {
+        0% {
+          background-position: 0 0, 0 0, 0 0, 0 0;
+        }
+        100% {
+          background-position: 200px 200px, 300px 300px, 400px 400px,
+            600px 600px;
+        }
+      }
+
+      /* Navigation Bar - Pink/Magenta Theme matching category page */
+      .cosmic-navbar {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        height: 70px;
+        background: rgba(30, 15, 30, 0.85);
+        backdrop-filter: blur(12px);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: 0 30px;
+        z-index: 1000;
+        box-shadow: 
+          0 8px 30px rgba(0, 0, 0, 0.6),
+          0 0 25px rgba(255, 0, 255, 0.4);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 0, 255, 0.6);
+        transition: all 0.4s ease;
+      }
+
+      .cosmic-navbar:hover {
+        box-shadow: 
+          0 10px 35px rgba(0, 0, 0, 0.7),
+          0 0 30px rgba(255, 0, 255, 0.55);
+        transform: translateY(-2px);
+      }
+
+      .nav-left, .nav-center, .nav-right {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-left {
+        justify-self: start;
+        gap: 30px;
+      }
+
+      .nav-center {
+        justify-self: center;
+      }
+
+      .nav-right {
+        justify-self: end;
+      }
+
+      .brand-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .brand-logo {
+        height: 45px;
+        width: auto;
+        filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.6));
+        transition: transform 0.3s ease;
+      }
+
+      .brand-logo:hover {
+        transform: scale(1.05);
+      }
+
+      .brand-additional-logo {
+        height: 45px;
+        width: auto;
+        filter: drop-shadow(0 0 10px rgba(157, 0, 255, 0.5));
+        transition: transform 0.3s ease;
+      }
+      
+      .brand-additional-logo:hover {
+        transform: scale(1.05);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+        margin-left: 0;
+      }
+
+      .nav-btn {
+        color: var(--text-primary);
+        text-decoration: none;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.05rem;
+        padding: 8px 18px;
+        border-radius: 12px;
+        transition: all 0.35s ease;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav-btn:hover, 
+      .nav-btn.active {
+        background: rgba(40, 20, 40, 0.85);
+        box-shadow: var(--glow-primary);
+        border-color: var(--primary);
+        transform: translateY(-2px);
+      }
+
+      .nav-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.4), transparent);
+        transition: left 0.7s;
+        z-index: -1;
+      }
+
+      .nav-btn:hover::after {
+        left: 100%;
+      }
+
+      .nav-btn.active {
+        background: rgba(50, 25, 50, 0.9);
+        box-shadow: var(--glow-primary);
+        border-color: var(--primary);
+      }
+
+      /* Center Back Button - Circular with Arrow - Matching category page style */
+      .back-to-list-btn {
+        background: linear-gradient(45deg, var(--accent), var(--primary));
+        color: white;
+        border: none;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--glow-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        text-decoration: none;
+      }
+
+      .back-to-list-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transform: rotate(45deg) translateX(-100%);
+        transition: transform 0.6s ease;
+        z-index: -1;
+      }
+
+      .back-to-list-btn:hover::before {
+        transform: rotate(45deg) translateX(100%);
+      }
+
+      .back-to-list-btn:hover {
+        transform: translateY(-3px) scale(1.12);
+        box-shadow: 
+          0 0 18px rgba(255, 0, 255, 0.85),
+          0 0 30px rgba(255, 105, 180, 0.65);
+      }
+
+      .back-to-list-btn:active {
+        transform: translateY(1px) scale(1.05);
+      }
+
+      /* Social Media Icons - Original Colors */
+      .social-icons {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .social-icon {
+        color: var(--text-primary);
+        font-size: 1.55rem;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.35s ease;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        background: rgba(30, 15, 30, 0.8);
+        border: 1px solid rgba(255, 0, 255, 0.5);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      }
+
+      .social-icon::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, transparent, rgba(255, 0, 255, 0.3), transparent);
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .social-icon:hover::before {
+        opacity: 1;
+      }
+
+      .social-icon i {
+        position: relative;
+        z-index: 2;
+        transition: transform 0.3s ease;
+      }
+
+      .social-icon:hover i {
+        transform: scale(1.2);
+      }
+
+      .social-icon.whatsapp:hover {
+        color: #25D366;
+        background: rgba(37, 211, 102, 0.18);
+        box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
+        border-color: #25D366;
+        transform: translateY(-3px) scale(1.08);
+      }
+
+      .social-icon.facebook:hover {
+        color: #4267B2;
+        background: rgba(66, 103, 178, 0.18);
+        box-shadow: 0 0 20px rgba(66, 103, 178, 0.7);
+        border-color: #4267B2;
+        transform: translateY(-3px) scale(1.08);
+      }
+
+      .social-icon.instagram:hover {
+        color: #E4405F;
+        background: rgba(228, 64, 95, 0.18);
+        box-shadow: 0 0 20px rgba(228, 64, 95, 0.7);
+        border-color: #E4405F;
+        transform: translateY(-3px) scale(1.08);
+      }
+
+      /* Hero Section - Pink/Magenta Theme */
+      .hero-section {
+        min-height: 950px;
+        padding-top: 180px;
+        padding-bottom: 120px;
+        background: linear-gradient(rgba(30, 15, 30, 0.85), rgba(40, 20, 40, 0.9)),
+                    url('assets/images/negocios/restaurantes/banner.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        position: relative;
+        overflow: visible;
+        margin-bottom: 120px;
+        z-index: 50;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 30% 50%, rgba(255, 0, 255, 0.15) 0%, transparent 70%);
+        z-index: -1;
+      }
+
+      .hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 50px;
+        min-height: 750px;
+      }
+
+      .business-info {
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 30px;
+      }
+
+      .business-name {
+        font-size: 4.3rem;
+        margin-bottom: 8px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+        line-height: 1.05;
+      }
+
+      .business-subtitle {
+        font-size: 1.85rem;
+        color: var(--accent);
+        margin-bottom: 22px;
+        font-weight: 400;
+        letter-spacing: 1px;
+        text-shadow: 0 0 8px rgba(199, 21, 133, 0.5);
+      }
+
+      .business-tagline {
+        font-size: 2.0rem;
+        color: var(--text-secondary);
+        margin-bottom: 30px;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        max-width: 650px;
+        line-height: 1.45;
+      }
+
+      .business-contact {
+        background: rgba(40, 20, 40, 0.94);
+        border-radius: 22px;
+        padding: 40px;
+        border: 2px solid rgba(255, 0, 255, 0.65);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65);
+        min-width: 350px;
+        max-width: 460px;
+        align-self: flex-start;
+        margin-top: 15px;
+        position: relative;
+        z-index: 100;
+      }
+
+      .business-social {
+        display: flex;
+        gap: 22px;
+        margin-bottom: 32px;
+        justify-content: center;
+      }
+
+      .biz-social-btn {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.9rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.45);
+      }
+
+      .biz-social-btn.whatsapp {
+        background: #25D366;
+      }
+
+      .biz-social-btn.facebook {
+        background: #4267B2;
+      }
+
+      .biz-social-btn.instagram {
+        background: #E4405F;
+      }
+
+      .biz-social-btn:hover {
+        transform: translateY(-6px) scale(1.18);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+      }
+
+      .biz-social-btn i {
+        position: relative;
+        z-index: 2;
+      }
+
+      .biz-social-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.35);
+        transform: scale(0);
+        transition: transform 0.3s ease;
+        border-radius: 50%;
+      }
+
+      .biz-social-btn:hover::before {
+        transform: scale(1.5);
+      }
+
+      .contact-details {
+        background: rgba(25, 10, 25, 0.85);
+        border-radius: 18px;
+        padding: 28px;
+        border: 1px solid rgba(255, 0, 255, 0.55);
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 22px;
+        padding-bottom: 22px;
+        border-bottom: 1px solid rgba(255, 0, 255, 0.45);
+      }
+
+      .contact-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .contact-icon {
+        color: var(--primary);
+        font-size: 1.65rem;
+        min-width: 30px;
+        margin-top: 6px;
+      }
+
+      .contact-label {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.05rem;
+        color: var(--accent);
+        margin-bottom: 6px;
+        letter-spacing: 0.5px;
+      }
+
+      .contact-value {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 1.3rem;
+        color: var(--text-primary);
+        font-weight: 500;
+        line-height: 1.55;
+      }
+
+      /* Phone link styling */
+      .phone-link {
+        color: var(--phone-green);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .phone-link:hover {
+        color: #4dff91;
+        text-shadow: 0 0 10px rgba(0, 230, 118, 0.7);
+        transform: scale(1.05);
+      }
+
+      /* Details Section */
+      .details-section {
+        max-width: 1200px;
+        margin: 0 auto 60px;
+        padding: 0 20px;
+        padding-top: 40px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .section-title {
+        font-size: 2.6rem;
+        text-align: center;
+        margin-bottom: 45px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 75%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        border-radius: 2px;
+        box-shadow: var(--glow-primary);
+      }
+
+      .details-content {
+        background: rgba(40, 20, 40, 0.88);
+        border-radius: 20px;
+        padding: 45px;
+        border: 2px solid rgba(255, 0, 255, 0.55);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+        line-height: 1.75;
+        font-size: 1.15rem;
+        color: var(--text-secondary);
+      }
+
+      /* Gallery Section */
+      .gallery-section {
+        width: 100%;
+        margin: 0 auto 60px;
+        padding: 0 15px;
+        padding-bottom: 40px;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin-top: 35px;
+        max-width: 1800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .gallery-item {
+        border-radius: 20px;
+        overflow: hidden;
+        height: 500px;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+        transition: all 0.45s ease;
+        background-size: cover;
+        background-position: center;
+        border: 2px solid rgba(255, 0, 255, 0.45);
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-12px) scale(1.04);
+        box-shadow: var(--glow-primary);
+        border-color: var(--primary);
+      }
+
+      .gallery-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, rgba(25, 10, 25, 0.92), transparent 75%);
+        z-index: 1;
+      }
+
+      .gallery-item:nth-child(1) {
+        background-image: url('assets/images/negocios/restaurantes/interior.jpg');
+      }
+
+      .gallery-item:nth-child(2) {
+        background-image: url('assets/images/negocios/restaurantes/plato1.jpg');
+      }
+
+      .gallery-item:nth-child(3) {
+        background-image: url('assets/images/negocios/restaurantes/plato2.jpg');
+      }
+
+      .gallery-item:nth-child(4) {
+        background-image: url('assets/images/negocios/restaurantes/barra.jpg');
+      }
+
+      .gallery-item:nth-child(5) {
+        background-image: url('assets/images/negocios/restaurantes/terraza.jpg');
+      }
+
+      .gallery-item:nth-child(6) {
+        background-image: url('assets/images/negocios/restaurantes/evento.jpg');
+      }
+
+      /* Footer - With LMzFX link in orange */
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(20, 10, 20, 0.92);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255, 0, 255, 0.5);
+        padding: 12px 0;
+        text-align: center;
+        z-index: 900;
+        box-shadow: 
+          0 -4px 20px rgba(0, 0, 0, 0.6),
+          0 0 15px rgba(255, 0, 255, 0.3);
+      }
+
+      footer p {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        margin: 0;
+        letter-spacing: 0.5px;
+        text-shadow: 0 0 8px rgba(255, 0, 255, 0.5);
+      }
+
+      .lmzfx-link {
+        color: var(--lmzfx-orange);
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 0 0 10px rgba(255, 107, 0, 0.7);
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
+      }
+
+      .lmzfx-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--lmzfx-orange);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+      }
+
+      .lmzfx-link:hover {
+        transform: scale(1.05);
+        text-shadow: 0 0 15px rgba(255, 107, 0, 0.9);
+      }
+
+      .lmzfx-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 1200px) {
+        .hero-content {
+          min-height: 700px;
+        }
+
+        .business-name {
+          font-size: 3.9rem;
+        }
+
+        .business-subtitle {
+          font-size: 1.75rem;
+        }
+
+        .business-tagline {
+          font-size: 1.9rem;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .cosmic-navbar {
+          height: 65px;
+          padding: 0 25px;
+          border-radius: 22px;
+        }
+
+        .brand-logo {
+          height: 40px;
+        }
+
+        .brand-additional-logo {
+          height: 35px;
+        }
+
+        .nav-btn {
+          font-size: 1rem;
+          padding: 7px 15px;
+        }
+
+        .back-to-list-btn {
+          width: 50px;
+          height: 50px;
+          font-size: 1.4rem;
+        }
+
+        .social-icon {
+          width: 46px;
+          height: 46px;
+          font-size: 1.45rem;
+        }
+
+        .hero-section {
+          min-height: 800px;
+          padding-top: 140px;
+          padding-bottom: 90px;
+          margin-bottom: 90px;
+        }
+
+        .hero-content {
+          min-height: 650px;
+          gap: 40px;
+        }
+
+        .business-name {
+          font-size: 3.5rem;
+        }
+
+        .business-subtitle {
+          font-size: 1.65rem;
+        }
+
+        .business-tagline {
+          font-size: 1.8rem;
+        }
+
+        .business-contact {
+          min-width: 320px;
+          padding: 32px;
+        }
+
+        .biz-social-btn {
+          width: 65px;
+          height: 65px;
+          font-size: 1.7rem;
+        }
+
+        .gallery-item {
+          height: 400px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .cosmic-navbar {
+          top: 10px;
+          left: 10px;
+          right: 10px;
+          height: 60px;
+          padding: 0 15px;
+          border-radius: 20px;
+          grid-template-columns: 1fr auto 1fr;
+        }
+
+        .nav-links {
+          gap: 12px;
+        }
+
+        .nav-btn {
+          font-size: 0.9rem;
+          padding: 6px 12px;
+        }
+
+        .brand-logo {
+          height: 35px;
+        }
+
+        .brand-additional-logo {
+          height: 35px;
+        }
+
+        .back-to-list-btn {
+          width: 48px;
+          height: 48px;
+          font-size: 1.35rem;
+        }
+
+        .social-icon {
+          width: 42px;
+          height: 42px;
+          font-size: 1.35rem;
+        }
+
+        .hero-section {
+          min-height: auto;
+          padding-top: 100px;
+          padding-bottom: 60px;
+          margin-bottom: 0;
+          overflow: visible;
+          z-index: 50;
+        }
+
+        .hero-content {
+          min-height: auto;
+          flex-direction: column;
+          text-align: center;
+          gap: 35px;
+          padding-bottom: 40px;
+          position: relative;
+          z-index: 51;
+        }
+
+        .business-info {
+          padding-top: 0;
+          margin-bottom: 10px;
+        }
+
+        .business-name {
+          font-size: 3.1rem;
+        }
+
+        .business-subtitle {
+          font-size: 1.55rem;
+        }
+
+        .business-tagline {
+          font-size: 1.7rem;
+          margin: 0 auto 25px;
+        }
+
+        .business-contact {
+          align-self: center;
+          width: 100%;
+          max-width: 100%;
+          padding: 28px 20px;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+
+        .business-social {
+          gap: 18px;
+        }
+
+        .biz-social-btn {
+          width: 60px;
+          height: 60px;
+          font-size: 1.6rem;
+        }
+
+        .contact-details {
+          padding: 22px 18px;
+        }
+
+        .contact-item {
+          gap: 12px;
+          margin-bottom: 18px;
+          padding-bottom: 18px;
+        }
+
+        .contact-icon {
+          font-size: 1.4rem;
+          min-width: 26px;
+          margin-top: 4px;
+        }
+
+        .contact-label {
+          font-size: 0.95rem;
+        }
+
+        .contact-value {
+          font-size: 1.15rem;
+          line-height: 1.5;
+        }
+
+        .details-section {
+          margin-top: 80px;
+          padding-top: 80px;
+          clear: both;
+        }
+
+        .section-title {
+          font-size: 2.3rem;
+        }
+
+        .details-content {
+          padding: 35px 30px;
+          font-size: 1.1rem;
+        }
+
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .gallery-item {
+          height: 320px;
+        }
+
+        footer p {
+          font-size: 0.9rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .cosmic-navbar {
+          top: 8px;
+          left: 8px;
+          right: 8px;
+          height: 55px;
+          padding: 0 10px;
+          border-radius: 18px;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .brand-logo {
+          height: 32px;
+        }
+
+        .brand-additional-logo {
+          height: 32px;
+        }
+
+        .back-to-list-btn {
+          width: 45px;
+          height: 45px;
+          font-size: 1.25rem;
+        }
+
+        .social-icon {
+          width: 38px;
+          height: 38px;
+          font-size: 1.25rem;
+        }
+
+        .hero-section {
+          min-height: auto;
+          padding-top: 80px;
+          padding-bottom: 50px;
+          margin-bottom: 0;
+          overflow: visible;
+          z-index: 50;
+        }
+
+        .hero-content {
+          min-height: auto;
+          gap: 25px;
+          padding-bottom: 50px;
+          position: relative;
+          z-index: 51;
+        }
+
+        .business-name {
+          font-size: 2.2rem;
+        }
+
+        .business-subtitle {
+          font-size: 1.3rem;
+        }
+
+        .business-tagline {
+          font-size: 1.4rem;
+        }
+
+        .business-contact {
+          padding: 20px 15px;
+          min-width: auto;
+          max-height: none;
+          margin-bottom: 0;
+        }
+
+        .business-social {
+          gap: 12px;
+          margin-bottom: 20px;
+        }
+
+        .biz-social-btn {
+          width: 52px;
+          height: 52px;
+          font-size: 1.45rem;
+        }
+
+        .contact-details {
+          padding: 16px 14px;
+        }
+
+        .contact-item {
+          gap: 10px;
+          margin-bottom: 15px;
+          padding-bottom: 15px;
+        }
+
+        .contact-icon {
+          font-size: 1.2rem;
+          min-width: 22px;
+        }
+
+        .contact-label {
+          font-size: 0.85rem;
+        }
+
+        .contact-value {
+          font-size: 1.05rem;
+          line-height: 1.45;
+        }
+
+        .details-section {
+          margin-top: 100px;
+          margin-bottom: 40px;
+          padding: 60px 15px 0;
+          clear: both;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+          margin-bottom: 30px;
+        }
+
+        .details-content {
+          padding: 25px 20px;
+          font-size: 1rem;
+        }
+
+        .gallery-section {
+          padding: 0 10px;
+          margin-bottom: 60px;
+          padding-bottom: 20px;
+        }
+
+        .gallery-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .gallery-item {
+          height: 250px;
+        }
+
+        footer {
+          padding: 10px 0;
+        }
+
+        footer p {
+          font-size: 0.75rem;
+          padding: 0 10px;
+        }
+
+        .lmzfx-link {
+          font-size: 0.8rem;
+        }
+
+        .phone-link {
+          font-size: 1.05rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .cosmic-navbar {
+          height: 50px;
+          padding: 0 8px;
+        }
+
+        .social-icons {
+          gap: 8px;
+        }
+
+        .social-icon {
+          width: 35px;
+          height: 35px;
+          font-size: 1.1rem;
+        }
+
+        .hero-section {
+          padding-top: 70px;
+          padding-bottom: 40px;
+          overflow: visible;
+          z-index: 50;
+        }
+
+        .hero-content {
+          gap: 20px;
+          padding-bottom: 40px;
+          position: relative;
+          z-index: 51;
+        }
+
+        .business-name {
+          font-size: 1.8rem;
+        }
+
+        .business-subtitle {
+          font-size: 1.1rem;
+        }
+
+        .business-tagline {
+          font-size: 1.2rem;
+        }
+
+        .business-contact {
+          padding: 18px 12px;
+        }
+
+        .details-section {
+          margin-top: 80px;
+          padding-top: 50px;
+          clear: both;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+
+        .details-content {
+          padding: 20px 15px;
+          font-size: 0.95rem;
+        }
+
+        .gallery-item {
+          height: 220px;
+        }
+      }
+
+      /* Improve touch targets for mobile */
+      @media (hover: none) and (pointer: coarse) {
+        .nav-btn,
+        .social-icon,
+        .biz-social-btn,
+        .back-to-list-btn {
+          min-width: 44px;
+          min-height: 44px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="cosmic-navbar">
+      <div class="nav-left">
+        <div class="brand-container">
+          <img src="../../../../assets/images/logo/entumovil.webp" alt="entuMovil Logo" class="brand-logo">
+          <img src="../../../../assets/images/logo/logotex.webp" alt="Additional Logo" class="brand-additional-logo">
+        </div>
+        <div class="nav-links">
+          <a href="../../../../../entumóvil.html" class="nav-btn">Inicio</a>
+          <a href="../../../portada.html" class="nav-btn">Portada</a>
+        </div>
+      </div>
+      
+      <div class="nav-center">
+        <a href="../../../subcategoria_lista/1_alimentos/negocios_restaurantes.html" class="back-to-list-btn" title="Volver a la lista">
+          <i class="fas fa-arrow-up"></i>
+        </a>
+      </div>
+      
+      <div class="nav-right">
+        <div class="social-icons">
+          <a href="https://wa.me/tunumero" target="_blank" class="social-icon whatsapp" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://facebook.com/tupagina" target="_blank" class="social-icon facebook" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://instagram.com/tupagina" target="_blank" class="social-icon instagram" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="cosmos-background">
+      <div class="stars-container"></div>
+    </div>
+
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="business-info">
+          <h1 class="business-name">Restaurante Sabor Cósmico</h1>
+          <div class="business-subtitle">Gastronomía de Alta Calidad</div>
+          <h2 class="business-tagline">Sabores que viajan por el universo, una experiencia culinaria única desde 2008</h2>
+        </div>
+        
+        <div class="business-contact">
+          <div class="business-social">
+            <a href="https://wa.me/584121112222" target="_blank" class="biz-social-btn whatsapp" title="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://facebook.com/saborcosmico" target="_blank" class="biz-social-btn facebook" title="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://instagram.com/saborcosmico" target="_blank" class="biz-social-btn instagram" title="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+          
+          <div class="contact-details">
+            <div class="contact-item">
+              <i class="fas fa-clock contact-icon"></i>
+              <div>
+                <div class="contact-label">Horario</div>
+                <div class="contact-value">Lun - Dom: 12:00 PM - 11:00 PM<br>Cerrado los martes</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone contact-icon"></i>
+              <div>
+                <div class="contact-label">Teléfono</div>
+                <div class="contact-value">
+                  <a href="tel:+582121112222" class="phone-link">+58 212-111-2222</a><br>
+                  <a href="tel:+584141112222" class="phone-link">+58 414-111-2222</a>
+                </div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt contact-icon"></i>
+              <div>
+                <div class="contact-label">Dirección</div>
+                <div class="contact-value">Av. Principal de Sabana Grande,<br>Centro Comercial Gastronómico,<br>Piso 2, Local R-05<br>Caracas, Venezuela</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="details-section">
+      <h2 class="section-title">Sobre Nosotros</h2>
+      <div class="details-content">
+        <p>Bienvenidos a <strong>Restaurante Sabor Cósmico</strong>, tu destino gastronómico en el corazón de Caracas. Desde 2008, hemos deleitado a nuestros comensales con una fusión única de sabores internacionales y toques venezolanos, preparados con ingredientes frescos y de la más alta calidad.</p>
+        <br>
+        <p>Nuestro chef ejecutivo, con más de 20 años de experiencia en las mejores cocinas del mundo, ha diseñado un menú innovador que combina técnicas culinarias modernas con recetas tradicionales. Ofrecemos una experiencia completa con nuestra carta de vinos premiada, coctelería artesanal y un ambiente elegante con vista panorámica de la ciudad.</p>
+        <br>
+        <p>En Sabor Cósmico, cada detalle cuenta. Desde nuestra atención personalizada hasta la presentación impecable de cada plato, nos esforzamos por crear momentos inolvidables para celebraciones especiales, cenas románticas o reuniones de negocios. Contamos con áreas privadas para eventos y un servicio de catering para ocasiones memorables.</p>
+        <br>
+        <p>¡Ven y déjate transportar por una experiencia gastronómica que desafía los límites del universo!</p>
+      </div>
+    </section>
+
+    <section class="gallery-section">
+      <h2 class="section-title">Galería</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+      </div>
+    </section>
+
+    <footer>
+      <p><a href="../../../../../index.html" class="lmzfx-link">LMzFX</a> © 2026 - Arquitectura y crecimiento digital</p>
+    </footer>
+
+    <script src="../../../../assets/js/data-manager.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Set active navigation link if needed
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-btn');
+        
+        navLinks.forEach(link => {
+          if (currentPath.includes(link.getAttribute('href')) ||
+             (currentPath === '/' && link.getAttribute('href') === 'index.html')) {
+            link.classList.add('active');
+          }
+        });
+
+        // Aplicar colores de categoría
+        aplicarColoresCategoria('1_alimentos');
+
+        // Cargar datos del negocio específico
+        const businessId = 'restaurante_sabor_cosmico'; // ID del negocio
+        const dataUrl = '../../../../data/negocios.json';
+        
+        initDataManager(dataUrl).then(dataManager => {
+          if (dataManager) {
+            const negocio = dataManager.getBusinessById(businessId);
+            if (negocio) {
+              // Actualizar información del negocio
+              document.querySelector('.business-name').textContent = negocio.nombre;
+              document.querySelector('.business-subtitle').textContent = negocio.subtitulo;
+              document.querySelector('.business-tagline').textContent = negocio.tagline;
+              
+              // Actualizar información de contacto
+              document.querySelector('.business-hours').textContent = negocio.contacto.horario;
+              document.querySelector('.business-phone').textContent = negocio.contacto.telefonos[0] || '';
+              document.querySelector('.business-address').textContent = negocio.contacto.direccion;
+              
+              // Actualizar redes sociales
+              if (negocio.redes_sociales.whatsapp) {
+                document.querySelector('.whatsapp-link').href = `https://wa.me/${negocio.redes_sociales.whatsapp.replace(/\D/g, '')}`;
+              }
+              if (negocio.redes_sociales.facebook) {
+                document.querySelector('.facebook-link').href = negocio.redes_sociales.facebook;
+              }
+              if (negocio.redes_sociales.instagram) {
+                document.querySelector('.instagram-link').href = negocio.redes_sociales.instagram;
+              }
+              
+              // Actualizar galería
+              const galleryItems = document.querySelectorAll('.gallery-item');
+              negocio.galeria.forEach((image, index) => {
+                if (galleryItems[index]) {
+                  galleryItems[index].style.backgroundImage = `url('${image}')`;
+                  galleryItems[index].style.backgroundSize = 'cover';
+                  galleryItems[index].style.backgroundPosition = 'center';
+                }
+              });
+            }
+          }
+        }).catch(error => {
+          console.error('Error al cargar datos del negocio:', error);
+        });
+      });
+    </script>
+  </body>
+</html>
+
